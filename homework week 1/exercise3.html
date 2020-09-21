@@ -1,0 +1,616 @@
+<!-- Exercise 3 week 1: Tran Phuong Thao 20173383 KTMT.06 thao.tp173383@sis.hust.edu.vn -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise 3: Simple Facebook Timeline</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+      }
+
+      .header-nav {
+        display: flex;
+        overflow: hidden;
+        background-color: #fff;
+        padding: 10px;
+        height: 50px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      a {
+        text-decoration: none;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+      }
+
+      .header-cover h3,
+      .body h3 {
+        font-weight: bold;
+      }
+
+      .header-nav img {
+        border-radius: 10%;
+      }
+
+      a.active {
+        background-color: #2196f3;
+        padding: 2px;
+        color: white;
+        border-radius: 10%;
+      }
+
+      .header-cover {
+        text-align: center;
+      }
+
+      .header-cover #backgroundCover {
+        padding-top: 250px;
+        margin: 0 auto;
+        width: 80%;
+        height: 348px;
+        background-color: #555;
+      }
+
+      .header-cover #avatar {
+        border-radius: 50%;
+      }
+
+      .header-name {
+        margin-top: 100px;
+        margin-bottom: 10px;
+      }
+
+      .header-name #name {
+        font-size: large;
+      }
+
+      .body-nav {
+        display: flex;
+        overflow: hidden;
+        background-color: #fff;
+        padding: 10px;
+        height: 50px;
+        margin: 0 auto;
+        width: 80%;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .body {
+        display: flex;
+        background-color: #fff;
+        padding: 10px;
+        margin: 0 auto;
+        width: 80%;
+        justify-content: space-between;
+      }
+
+      .body #bodyLeft {
+        width: 40%;
+        text-align: left;
+      }
+
+      .body #editDetails {
+        display: block;
+        background-color: rgb(143, 141, 141);
+        color: white;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .body #addHobbies {
+        display: block;
+        background-color: rgb(143, 141, 141);
+        color: white;
+        text-align: center;
+      }
+      .body p {
+        padding: 5px;
+        margin: 5px;
+      }
+
+      .body #bodyRight {
+        width: 50%;
+        text-align: left;
+      }
+
+      .body #posts {
+        display: inline-flex;
+        margin-top: 15px;
+      }
+
+      .body #actionBar {
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
+
+      .body #photos {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .body #end {
+        text-align: center;
+      }
+    </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  </head>
+  <body>
+    <!-- header nav -->
+    <div class="header-nav">
+      <div id="leftNav">
+        <a href="#facebook" style="margin-right: 20px; margin-left: 20px">
+          <img
+            id="facebookIcon"
+            src="https://www.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png"
+            alt="Facebook"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#search" style="margin-right: 20px">
+          <img
+            id="searchIcon"
+            src="https://www.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-512.png"
+            alt="Search"
+            height="30"
+            width="30"
+          />
+        </a>
+      </div>
+      <div id="middleNav">
+        <a href="#home" style="margin-right: 30px">
+          <img
+            id="homeIcon"
+            src="data:image/png;base64,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"
+            alt="Home"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#friend" style="margin-right: 30px">
+          <img
+            id="friendIcon"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS9vmOtulkaq7YSUhnKwMHOuPULxzm0Ca7Wrg&usqp=CAU"
+            alt="Friend"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#watch" style="margin-right: 30px">
+          <img
+            id="watchIcon"
+            src="https://static.thenounproject.com/png/111940-200.png"
+            alt="Watch"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#marketplace" style="margin-right: 30px">
+          <img
+            id="marketIcon"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAbFBMVEX///8AAAAwMDDo6OicnJx9fX0rKyvg4OBra2v19fV0dHTCwsKysrKQkJCUlJTv7++Ghoarq6u5ublVVVXX19c8PDz4+PhaWlrJycmMjIwiIiIUFBQZGRnj4+McHByFhYVlZWU5OTkLCwtDQ0PrsIpwAAAEyElEQVR4nO2d63bqIBBGU22927S23uul9f3f8VQDLmE5AzEzgj3f/gsl2QmQmYBNUQAAAAAAAAAAAAAAAAAAADwk5baVmm2pavj2lJ6dpmD5k1rviOZNfE4td+JZT3C2TS13YjtTM3xP7WZ4VzNcpVYzrLQEJ6nNzkyUDFupxc60dAQXqb0uGKoYfqTWuuBDQ/AztZXDp4LhPrWUw15esJvayaMrbjhwD9BqX2Voj3+1tDSl5dVSew2H15v2ZvKBtGDptk+FFSZwpSYC88dEqZnKiLDTD6ik428vbfrhT3JMFPOGY/7yeHnNWz2BEH3vAhLX2WZX1EzHG5rZ+oe4O35i068rweK3TkT3Jigg03DesPyqihfXi2dxV/k2+l7MvSTqLaviOdUOb1jMo1q3rCRvoj/K20S9Q1VMZjcBQ3OYA1Hc9s5CMonquE1TM7UdrWTAETC0YRN1c7wnVqeOAo+fNlFPW1uPbCiynEqO/KhDLonybuGeqvdSlffIhkKGvar8hSr3Ikexm+inTaFOOCJbChmOIruxhZh1a+OlTdREcO5EdLQRMrSRExl0HtxTEUqioi/cKNh3QoZ2PJC9ILo71cLr/OQttI8zJpwKGprgkHyg+jdxHz79MNET2MyEBcwbhqChyU1W5BvR2Gm9Di9uk/RLINubmaA/aGgHIt37vCSKnHbjiUybfnmtKnCjP2hoZ7VXsoJ8EuWlTWv6jboZhlTmdCRsaDIoeiDO1u4JNV6J8tMm+uIGQ7YixjAUuJ27ypmm8Xdk2lScJ/Iv7ohhwz6fQRXiSVRs2lSccxv2IRw2tAMxfCBLwyQqNm365buqwaY0EYbmiN90Ddkkyou5mbnZdh72ARVhaB+/zBqh9/xqFH/7z9fXEcnOVJnQVUaTGnV2dBV/rmmSROWz2sTR4CbmtNrEcXsSldNqE8ftSVQn3HgW3N5NH2MYNlkS/t8M9z2GaVVnytXpmRdNT3ylmKbcrFzKkM1TzDOKDsxPmJb4SjFNuTmdlCETsZ1Pi0udikjDcYShG7nBkAaGF8CwAoYnYHgEhrHA8AIYVsDwBAyPwDAW17A765PYF9HLgq7zW8saspUimpq5i5pShh2Glllu+GqxtewZNW9KyHD69BhMbzbshRvPAnoDT4hcfgUU4va1GX+VJ1fYWZ7nEG49A+j9L2EeY+Gi0d6veeqzj4De1RCDv9ckRxqMwiN5/RboGo23tuU+FAU2YG5ynlAPm+aCv4zW4UOlgd6rW5fhYJqb5Xo6EP6ZZbnptt29Or1291603Qh52e5udP7tgLsFTGDjYzTuFhq9fzkAQz1gKAUM9YChFDDUA4ZSwFAPGEoBQz1gKAUM9YChFDDUA4ZSwFAPGEoBQz1gKAUM9YChFDDUA4ZSwFCPNIbzxfBeLOZJDNMBQxjCMD0whCEM0wNDGMIwPfcy/B7cj+8khqrfsPPYJTH8+xkwDCWBoRQw1AOGUsBQDxhKAUM9YCgFDPWAoRQw1AOGUsBQDxhKAUM9YCjFHzbsV5/VHjvHGVz/vLYGpfuN1XF1ZMmv5XofkcoE5qtXtfG/P5QHgU9NwBCGGQBDGMIwPTCEIQzTI2n4vGrlx0ovTQQAAAAAAAAAAAAAAAAAANDgHyHWcGgL4fItAAAAAElFTkSuQmCC"
+            alt="Marketplace"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#group" style="margin-right: 30px">
+          <img
+            id="groupIcon"
+            src="data:image/png;base64,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"
+            alt="Group"
+            height="30"
+            width="30"
+          />
+        </a>
+      </div>
+      <div id="rightNav">
+        <a href="#account" style="margin-right: 20px">
+          <img
+            id="personalAccount"
+            style="border-radius: 50%"
+            src="https://www.takadada.com/wp-content/uploads/2019/07/avatar-one-piece-0.jpg"
+            alt="Create"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#create" style="margin-right: 20px">
+          <img
+            id="createIcon"
+            src="https://www.iconfinder.com/data/icons/ios7-essence/22/add_plus-512.png"
+            alt="Create"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#messenger" style="margin-right: 20px">
+          <img
+            id="messengerIcon"
+            src="https://img.icons8.com/ios/452/facebook-messenger.png"
+            alt="Messenger"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#notification" style="margin-right: 20px">
+          <img
+            id="notificationIcon"
+            src="https://icons-for-free.com/iconfiles/png/512/notification-131964743693202280.png"
+            alt="Notifications"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#account" style="margin-right: 20px">
+          <img
+            id="accountIcon"
+            src="https://image.flaticon.com/icons/png/512/25/25623.png"
+            alt="Account"
+            height="30"
+            width="30"
+          />
+        </a>
+      </div>
+    </div>
+    <div class="header-cover">
+      <!-- background cover and avatar-->
+      <div id="backgroundCover">
+        <img
+          id="avatar"
+          src="https://www.takadada.com/wp-content/uploads/2019/07/avatar-one-piece-0.jpg"
+          width="168"
+          height="168"
+          alt="Avatar"
+        />
+      </div>
+      <!-- name account part -->
+      <div class="header-name">
+        <h3 id="name">Trần Phương Thảo</h3>
+      </div>
+      <!-- nav bar of body -->
+      <div class="body-nav">
+        <div>
+          <a href="#timeline" class="active" style="margin-right: 20px"
+            >Timeline</a
+          >
+          <a href="#about" style="margin-right: 20px">About</a>
+          <a href="#friend" style="margin-right: 20px">Friends (101)</a>
+          <a href="#More" style="margin-right: 20px">More</a>
+        </div>
+        <div>
+          <a href="#edit" style="margin-right: 10px">Edit Profile</a>
+        </div>
+      </div>
+      <!-- Body part of page -->
+      <div class="body">
+        <div id="bodyLeft">
+          <!-- Intro part -->
+          <div id="intro">
+            <h3 id="introHeader">Intro</h3>
+            <p>Intern at FPT Software</p>
+            <p>
+              Studies Kỹ thuật Máy tính at Đại học Bách Khoa Hà Nội - Hanoi
+              University of Science and Technology
+            </p>
+            <p>Went to THPT Chuyên Lam Sơn</p>
+            <p>Lives in Hanoi, Vietnam</p>
+            <p>Single</p>
+            <p>github.com/tranphuongthao2405</p>
+            <a href="#editDetails" id="editDetails">Edit Details</a>
+            <a href="#addHobbies" id="addHobbies">Add Hobbies</a>
+          </div>
+          <!-- Photos part -->
+          <div id="photos">
+            <h3 id="photoHeader">Photos</h3>
+            <table>
+              <tr>
+                <td>
+                  <img
+                    src="https://steamuserimages-a.akamaihd.net/ugc/958587520919390547/3F35046AE6F5A9022404747350DB4B9CB808EF1F/?imw=268&imh=268&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://steamuserimages-a.akamaihd.net/ugc/958587520919390547/3F35046AE6F5A9022404747350DB4B9CB808EF1F/?imw=268&imh=268&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://steamuserimages-a.akamaihd.net/ugc/958587520919390547/3F35046AE6F5A9022404747350DB4B9CB808EF1F/?imw=268&imh=268&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img
+                    src="https://cdn.japo.vn/contents/wp-content/uploads/2019/03/tenor-1.gif"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://cdn.japo.vn/contents/wp-content/uploads/2019/03/tenor-1.gif"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://cdn.japo.vn/contents/wp-content/uploads/2019/03/tenor-1.gif"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img
+                    src="https://i.pinimg.com/236x/cb/82/07/cb8207e03802ea490cbe698c3ef70fce--doge-original-doge-meme.jpg"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://i.pinimg.com/236x/cb/82/07/cb8207e03802ea490cbe698c3ef70fce--doge-original-doge-meme.jpg"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://i.pinimg.com/236x/cb/82/07/cb8207e03802ea490cbe698c3ef70fce--doge-original-doge-meme.jpg"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Friends part -->
+          <div id="#friends">
+            <h3 id="friendsHeader">Friends</h3>
+            <table>
+              <tr>
+                <td>
+                  <img
+                    src="https://steamuserimages-a.akamaihd.net/ugc/958587520919390547/3F35046AE6F5A9022404747350DB4B9CB808EF1F/?imw=268&imh=268&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://steamuserimages-a.akamaihd.net/ugc/958587520919390547/3F35046AE6F5A9022404747350DB4B9CB808EF1F/?imw=268&imh=268&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://steamuserimages-a.akamaihd.net/ugc/958587520919390547/3F35046AE6F5A9022404747350DB4B9CB808EF1F/?imw=268&imh=268&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img
+                    src="https://cdn.japo.vn/contents/wp-content/uploads/2019/03/tenor-1.gif"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://cdn.japo.vn/contents/wp-content/uploads/2019/03/tenor-1.gif"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://cdn.japo.vn/contents/wp-content/uploads/2019/03/tenor-1.gif"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img
+                    src="https://i.pinimg.com/236x/cb/82/07/cb8207e03802ea490cbe698c3ef70fce--doge-original-doge-meme.jpg"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://i.pinimg.com/236x/cb/82/07/cb8207e03802ea490cbe698c3ef70fce--doge-original-doge-meme.jpg"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+                <td>
+                  <img
+                    src="https://i.pinimg.com/236x/cb/82/07/cb8207e03802ea490cbe698c3ef70fce--doge-original-doge-meme.jpg"
+                    width="100%"
+                    alt="Photo"
+                  />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div id="bodyRight">
+          <!-- Status part -->
+          <div>
+            <input
+              type="text"
+              name="status"
+              placeholder="What's on your mind?"
+              class="w3-input w3-border w3-round"
+            />
+          </div>
+
+          <!-- Posts part -->
+          <div id="posts">
+            <div>
+              <a href="#accountAvatar" style="margin-right: 10px">
+                <img
+                  style="border-radius: 50%"
+                  src="https://www.takadada.com/wp-content/uploads/2019/07/avatar-one-piece-0.jpg"
+                  alt="Small Avatar"
+                  height="60"
+                  width="60"
+                />
+              </a>
+            </div>
+
+            <div>
+              <a href="#accountName" style="font-weight: bold"
+                >Trần Phương Thảo</a
+              >
+              <p style="margin-top: 0px; color: #555">6 hrs . Youtube</p>
+              <iframe
+                src="https://www.youtube.com/embed/ZAYZmIfHEiU"
+                frameborder="0"
+                style="width: 500px; height: 300px"
+              ></iframe>
+              <div id="actionBar">
+                <a href="#like" style="margin-right: 20px">
+                  <img
+                    src="https://www.iconfinder.com/data/icons/like-18/32/459-01-512.png"
+                    alt="Like"
+                    height="20"
+                    width="20"
+                  />
+                  Like
+                </a>
+                <a href="#comment" style="margin-right: 20px">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSZju79vw4Z0ZOlaes5DOlqhzh6KtL8Ecqzbw&usqp=CAU"
+                    alt="Comment"
+                    height="20"
+                    width="20"
+                  />
+                  Comment
+                </a>
+                <a href="#share" style="margin-right: 20px">
+                  <img
+                    src="https://img.favpng.com/21/13/19/clip-art-computer-icons-portable-network-graphics-share-icon-scalable-vector-graphics-png-favpng-fwgDLEXbPJKH1getMFBnCJL5B.jpg"
+                    alt="Share"
+                    height="20"
+                    width="20"
+                  />
+                  Share
+                </a>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="comment"
+                  placeholder="Write a comment..."
+                  class="w3-input w3-border w3-round"
+                />
+              </div>
+            </div>
+          </div>
+          <div id="posts">
+            <div>
+              <a href="#accountAvatar" style="margin-right: 10px">
+                <img
+                  style="border-radius: 50%"
+                  src="https://www.takadada.com/wp-content/uploads/2019/07/avatar-one-piece-0.jpg"
+                  alt="Small Avatar"
+                  height="60"
+                  width="60"
+                />
+              </a>
+            </div>
+
+            <div>
+              <a href="#accountName" style="font-weight: bold"
+                >Trần Phương Thảo</a
+              >
+              <p style="margin-top: 0px; color: #555">7 hrs . Youtube</p>
+              <iframe
+                src="https://www.youtube.com/embed/w1oM3kQpXRo"
+                frameborder="0"
+                style="width: 500px; height: 300px"
+              ></iframe>
+              <div id="actionBar">
+                <a href="#like" style="margin-right: 20px">
+                  <img
+                    src="https://www.iconfinder.com/data/icons/like-18/32/459-01-512.png"
+                    alt="Like"
+                    height="20"
+                    width="20"
+                  />
+                  Like
+                </a>
+                <a href="#comment" style="margin-right: 20px">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSZju79vw4Z0ZOlaes5DOlqhzh6KtL8Ecqzbw&usqp=CAU"
+                    alt="Comment"
+                    height="20"
+                    width="20"
+                  />
+                  Comment
+                </a>
+                <a href="#share" style="margin-right: 20px">
+                  <img
+                    src="https://img.favpng.com/21/13/19/clip-art-computer-icons-portable-network-graphics-share-icon-scalable-vector-graphics-png-favpng-fwgDLEXbPJKH1getMFBnCJL5B.jpg"
+                    alt="Share"
+                    height="20"
+                    width="20"
+                  />
+                  Share
+                </a>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="comment"
+                  placeholder="Write a comment..."
+                  class="w3-input w3-border w3-round"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- End of body right page -->
+          <div id="end">
+            <img
+              src="https://www.iconfinder.com/data/icons/loading-3/100/load06-512.png"
+              height="5%"
+              width="5%"
+              alt="End of page"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
