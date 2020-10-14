@@ -1,0 +1,598 @@
+<!-- Exercise 3 week 1 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise 3: Simple Facebook Timeline</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+      }
+
+      .header-nav {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        display: flex;
+        overflow: hidden;
+        background-color: #fff;
+        padding: 10px;
+        height: 50px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      a {
+        text-decoration: none;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+      }
+
+      .header-cover h3,
+      .body h3 {
+        font-weight: bold;
+      }
+
+      .header-nav img {
+        border-radius: 10%;
+      }
+
+      a.active {
+        background-color: #2196f3;
+        padding: 2px;
+        color: white;
+        border-radius: 10%;
+      }
+
+      .header-cover {
+        text-align: center;
+      }
+
+      .header-cover #backgroundCover {
+        padding-top: 250px;
+        margin: 0 auto;
+        width: 80%;
+        height: 348px;
+        background-color: #555;
+      }
+
+      .header-cover #avatar {
+        border-radius: 50%;
+      }
+
+      .header-name {
+        margin-top: 100px;
+        margin-bottom: 10px;
+      }
+
+      .header-name #name {
+        font-size: large;
+      }
+
+      .body-nav {
+        display: flex;
+        overflow: hidden;
+        background-color: #fff;
+        padding: 10px;
+        height: 50px;
+        margin: 0 auto;
+        width: 80%;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .body {
+        display: flex;
+        background-color: #fff;
+        padding: 10px;
+        margin: 0 auto;
+        width: 80%;
+        justify-content: space-between;
+      }
+
+      .body #bodyLeft {
+        width: 40%;
+        text-align: left;
+      }
+
+      .body #editDetails {
+        display: block;
+        background-color: rgb(143, 141, 141);
+        color: white;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .body #addHobbies {
+        display: block;
+        background-color: rgb(143, 141, 141);
+        color: white;
+        text-align: center;
+      }
+      .body p {
+        padding: 5px;
+        margin: 5px;
+      }
+
+      .body #bodyRight {
+        width: 50%;
+        text-align: left;
+      }
+
+      .body #posts {
+        display: inline-flex;
+        margin-top: 15px;
+      }
+
+      .body #actionBar {
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
+
+      .body #photos {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .body #end {
+        text-align: center;
+      }
+
+      td {
+        margin: 10px;
+      }
+    </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  </head>
+  <body>
+    <!-- header nav -->
+    <div class="header-nav">
+      <div id="leftNav">
+        <a href="#facebook" style="margin-right: 20px; margin-left: 20px">
+          <img
+            id="facebookIcon"
+            src="./images/image1.jpg"
+            alt="Facebook"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#search" style="margin-right: 20px">
+          <img
+            id="searchIcon"
+            src="./images/image2.jpg"
+            alt="Search"
+            height="25"
+            width="25"
+          />
+        </a>
+      </div>
+      <div id="middleNav">
+        <a href="#home" style="margin-right: 30px">
+          <img
+            id="homeIcon"
+            src="./images/image3.jpg"
+            alt="Home"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#friend" style="margin-right: 30px">
+          <img
+            id="friendIcon"
+            src="./images/image4.jpg"
+            alt="Friend"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#watch" style="margin-right: 30px">
+          <img
+            id="watchIcon"
+            src="./images/image5.jpg"
+            alt="Watch"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#marketplace" style="margin-right: 30px">
+          <img
+            id="marketIcon"
+            src="./images/image6.jpg"
+            alt="Marketplace"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#group" style="margin-right: 30px">
+          <img
+            id="groupIcon"
+            src="./images/image7.jpg"
+            alt="Group"
+            height="30"
+            width="30"
+          />
+        </a>
+      </div>
+      <div id="rightNav">
+        <a href="#account" style="margin-right: 20px">
+          <img
+            id="personalAccount"
+            style="border-radius: 50%"
+            src="./images/image8.jpg"
+            alt="Avatar"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#create" style="margin-right: 20px">
+          <img
+            id="createIcon"
+            src="./images/image9.jpg"
+            alt="Create"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#messenger" style="margin-right: 20px">
+          <img
+            id="messengerIcon"
+            src="./images/image10.jpg"
+            alt="Messenger"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#notification" style="margin-right: 20px">
+          <img
+            id="notificationIcon"
+            src="./images/image11.jpg"
+            alt="Notifications"
+            height="30"
+            width="30"
+          />
+        </a>
+        <a href="#account" style="margin-right: 20px">
+          <img
+            id="accountIcon"
+            src="./images/image12.jpg"
+            alt="Account"
+            height="30"
+            width="30"
+          />
+        </a>
+      </div>
+    </div>
+    <div class="header-cover">
+      <!-- background cover and avatar-->
+      <div id="backgroundCover">
+        <img
+          id="avatar"
+          src="./images/image8.jpg"
+          width="168"
+          height="168"
+          alt="Avatar"
+        />
+      </div>
+      <!-- name account part -->
+      <div class="header-name">
+        <h3 id="name">Trần Phương Thảo</h3>
+      </div>
+      <!-- nav bar of body -->
+      <div class="body-nav">
+        <div>
+          <a href="#timeline" class="active" style="margin-right: 20px"
+            >Timeline</a
+          >
+          <a href="#about" style="margin-right: 20px">About</a>
+          <a href="#friend" style="margin-right: 20px">Friends (101)</a>
+          <a href="#More" style="margin-right: 20px">More</a>
+        </div>
+        <div>
+          <a href="#edit" style="margin-right: 10px">Edit Profile</a>
+          <a href="#viewAs"
+            ><img
+              style="height: 20px; width: 20px; margin-right: 10px"
+              src="./images/image13.jpg"
+          /></a>
+          <a href="#searchProfile"
+            ><img
+              style="height: 20px; width: 20px; margin-right: 10px"
+              src="./images/image2.jpg"
+          /></a>
+        </div>
+      </div>
+      <!-- Body part of page -->
+      <div class="body">
+        <div id="bodyLeft">
+          <!-- Intro part -->
+          <div id="intro">
+            <h3 id="introHeader">Intro</h3>
+            <p>
+              <img
+                style="height: 20px; width: 20px; margin-right: 10px"
+                src="./images/image14.jpg"
+              />Intern at FPT Software
+            </p>
+            <p>
+              <img
+                style="height: 20px; width: 20px; margin-right: 10px"
+                src="./images/image15.jpg"
+              />Studies Kỹ thuật Máy tính at Đại học Bách Khoa Hà Nội - Hanoi
+              University of Science and Technology
+            </p>
+            <p>
+              <img
+                style="height: 20px; width: 20px; margin-right: 10px"
+                src="./images/image15.jpg"
+              />Went to THPT Chuyên Lam Sơn
+            </p>
+            <p>
+              <img
+                style="height: 20px; width: 20px; margin-right: 10px"
+                src="./images/image16.jpg"
+              />Lives in Hanoi, Vietnam
+            </p>
+            <p>
+              <img
+                style="height: 20px; width: 20px; margin-right: 10px"
+                src="./images/image17.jpg"
+              />Single
+            </p>
+            <p>
+              <img
+                style="height: 20px; width: 20px; margin-right: 10px"
+                src="./images/image18.jpg"
+              />github.com/tranphuongthao2405
+            </p>
+            <a href="#editDetails" id="editDetails">Edit Details</a>
+            <a href="#addHobbies" id="addHobbies">Add Hobbies</a>
+          </div>
+          <!-- Photos part -->
+          <div id="photos">
+            <h3 id="photoHeader">Photos</h3>
+            <table>
+              <tr>
+                <td>
+                  <img src="./images/image19.jpg" width="100%" alt="Photo" />
+                </td>
+                <td>
+                  <img src="./images/image19.jpg" width="100%" alt="Photo" />
+                </td>
+                <td>
+                  <img src="./images/image19.jpg" width="100%" alt="Photo" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="./images/image20.jpg" width="100%" alt="Photo" />
+                </td>
+                <td>
+                  <img src="./images/image20.jpg" width="100%" alt="Photo" />
+                </td>
+                <td>
+                  <img src="./images/image20.jpg" width="100%" alt="Photo" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="./images/image21.jpg" width="100%" alt="Photo" />
+                </td>
+                <td>
+                  <img src="./images/image21.jpg" width="100%" alt="Photo" />
+                </td>
+                <td>
+                  <img src="./images/image21.jpg" width="100%" alt="Photo" />
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Friends part -->
+          <div id="#friends">
+            <h3 id="friendsHeader">Friends</h3>
+            <table style="text-align: center; font-weight: bold">
+              <tr>
+                <td>
+                  <img src="./images/image19.jpg" width="100%" alt="Photo" />
+                  <a href="#">Andy Nguyen</a>
+                </td>
+                <td>
+                  <img src="./images/image19.jpg" width="100%" alt="Photo" />
+                  <a href="#">Andy Tran</a>
+                </td>
+                <td>
+                  <img src="./images/image19.jpg" width="100%" alt="Photo" />
+                  <a href="#">Andy Bui</a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="./images/image20.jpg" width="100%" alt="Photo" />
+                  <a href="#">Christine A</a>
+                </td>
+                <td>
+                  <img src="./images/image20.jpg" width="100%" alt="Photo" />
+                  <a href="#">Christine B</a>
+                </td>
+                <td>
+                  <img src="./images/image20.jpg" width="100%" alt="Photo" />
+                  <a href="#">Christine C</a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="./images/image21.jpg" width="100%" alt="Photo" />
+                  <a href="#">Lou Tran</a>
+                </td>
+                <td>
+                  <img src="./images/image21.jpg" width="100%" alt="Photo" />
+                  <a href="#">Christine Lou</a>
+                </td>
+                <td>
+                  <img src="./images/image21.jpg" width="100%" alt="Photo" />
+                  <a href="#">Christine Andy</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div id="bodyRight">
+          <!-- Status part -->
+          <div>
+            <input
+              type="text"
+              name="status"
+              placeholder="What's on your mind?"
+              class="w3-input w3-border w3-round"
+            />
+          </div>
+
+          <!-- Posts part -->
+          <div id="posts">
+            <div>
+              <a href="#accountAvatar" style="margin-right: 10px">
+                <img
+                  style="border-radius: 50%"
+                  src="./images/image8.jpg"
+                  alt="Small Avatar"
+                  height="60"
+                  width="60"
+                />
+              </a>
+            </div>
+
+            <div>
+              <a href="#accountName" style="font-weight: bold"
+                >Trần Phương Thảo</a
+              >
+              <p style="margin-top: 0px; color: #555">6 hrs . Youtube</p>
+              <iframe
+                src="https://www.youtube.com/embed/ZAYZmIfHEiU"
+                frameborder="0"
+                style="width: 500px; height: 300px"
+              ></iframe>
+              <div id="actionBar">
+                <a href="#like" style="margin-right: 20px">
+                  <img
+                    src="./images/image22.jpg"
+                    alt="Like"
+                    height="20"
+                    width="20"
+                  />
+                  Like
+                </a>
+                <a href="#comment" style="margin-right: 20px">
+                  <img
+                    src="./images/image23.jpg"
+                    alt="Comment"
+                    height="20"
+                    width="20"
+                  />
+                  Comment
+                </a>
+                <a href="#share" style="margin-right: 20px">
+                  <img
+                    src="./images/image24.jpg"
+                    alt="Share"
+                    height="20"
+                    width="20"
+                  />
+                  Share
+                </a>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="comment"
+                  placeholder="Write a comment..."
+                  class="w3-input w3-border w3-round"
+                />
+              </div>
+            </div>
+          </div>
+          <div id="posts">
+            <div>
+              <a href="#accountAvatar" style="margin-right: 10px">
+                <img
+                  style="border-radius: 50%"
+                  src="./images/image8.jpg"
+                  alt="Small Avatar"
+                  height="60"
+                  width="60"
+                />
+              </a>
+            </div>
+
+            <div>
+              <a href="#accountName" style="font-weight: bold"
+                >Trần Phương Thảo</a
+              >
+              <p style="margin-top: 0px; color: #555">7 hrs . Youtube</p>
+              <iframe
+                src="https://www.youtube.com/embed/w1oM3kQpXRo"
+                frameborder="0"
+                style="width: 500px; height: 300px"
+              ></iframe>
+              <div id="actionBar">
+                <a href="#like" style="margin-right: 20px">
+                  <img
+                    src="./images/image22.jpg"
+                    alt="Like"
+                    height="20"
+                    width="20"
+                  />
+                  Like
+                </a>
+                <a href="#comment" style="margin-right: 20px">
+                  <img
+                    src="./images/image23.jpg"
+                    alt="Comment"
+                    height="20"
+                    width="20"
+                  />
+                  Comment
+                </a>
+                <a href="#share" style="margin-right: 20px">
+                  <img
+                    src="./images/image24.jpg"
+                    alt="Share"
+                    height="20"
+                    width="20"
+                  />
+                  Share
+                </a>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="comment"
+                  placeholder="Write a comment..."
+                  class="w3-input w3-border w3-round"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- End of body right page -->
+          <div id="end">
+            <img
+              src="./images/image25.jpg"
+              height="5%"
+              width="5%"
+              alt="End of page"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
